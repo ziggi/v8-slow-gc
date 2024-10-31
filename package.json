@@ -1,0 +1,12 @@
+{
+  "name": "v8-slow-gc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "script": "node --trace-gc-verbose --trace-gc-ignore-scavenger --max-old-space-size=8196 ./index.js",
+    "script-bun": "bun --trace-gc-verbose --trace-gc-ignore-scavenger --max-old-space-size=8196 ./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
