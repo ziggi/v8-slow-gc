@@ -5,7 +5,7 @@
 3. Wait for GC
 4. See the results
 
-# Results in Node 23.1
+# Results in Node 23.1 (V8)
 
 ```
 [7208:0x5df8760]    57625 ms: Mark-Compact 4828.6 (4924.1) -> 4490.0 (4596.6) MB, 1849.97 / 0.00 ms  (+ 0.7 ms in 0 steps since start of marking, biggest step 0.0 ms, walltime since start of marking 1861 ms) (average mu = 0.967, current mu = 0.966) finalize incremental marking via stack guard; GC in old space requested
@@ -65,3 +65,30 @@ diffMs 72
 ```
 
 As you can see, `diffMs` is not that big as in NodeJS.
+
+# Results in Node (ChakraCore)
+
+Node with ChakraCore has no issue like this:
+
+```
+add 10000000
+diffMs 84
+
+...
+
+add 12300000
+diffMs 72
+add 13700000
+diffMs 339
+
+...
+
+add 13800000
+diffMs 7
+
+...
+
+add 13900000
+index 14000000
+diffMs 64
+```
