@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "script": "node --trace-gc-verbose --trace-gc-ignore-scavenger --max-old-space-size=8196 ./index.js",
-    "script-bun": "bun --trace-gc-verbose --trace-gc-ignore-scavenger --max-old-space-size=8196 ./index.js"
+    "script-bun": "bun ./index.js"
   },
   "author": "",
   "license": "ISC",
