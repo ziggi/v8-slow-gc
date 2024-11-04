@@ -1,11 +1,13 @@
-# Run
+# NodeJS script variant
+
+### Run
 
 1. Run with flags `--trace-gc-verbose --trace-gc-ignore-scavenger --max-old-space-size=8196`
 2. Wait for ~5 GiB memory usage
 3. Wait for GC
 4. See the results
 
-# Results in Node 23.1 (V8)
+### Results in Node 23.1 (V8)
 
 ```
 [7208:0x5df8760]    57625 ms: Mark-Compact 4828.6 (4924.1) -> 4490.0 (4596.6) MB, 1849.97 / 0.00 ms  (+ 0.7 ms in 0 steps since start of marking, biggest step 0.0 ms, walltime since start of marking 1861 ms) (average mu = 0.967, current mu = 0.966) finalize incremental marking via stack guard; GC in old space requested
@@ -50,7 +52,7 @@ diffMs 1577
 
 `diffMs` exceed 1500 ms
 
-# Results in Bun (JavaScriptCore)
+### Results in Bun (JavaScriptCore)
 
 I have no idea how to trace gc in Bun, so, just output:
 
@@ -66,7 +68,7 @@ diffMs 72
 
 As you can see, `diffMs` is not that big as in NodeJS.
 
-# Results in Node (ChakraCore)
+### Results in Node (ChakraCore)
 
 Node with ChakraCore has no issue like this:
 
@@ -91,4 +93,56 @@ diffMs 7
 add 13900000
 index 14000000
 diffMs 64
+```
+
+# d8 script variant
+
+
+### d8
+
+```
+> d8 --allow-natives-syntax index-d8.js
+memory filled
+gc took 1969 ms
+gc took 1977 ms
+gc took 1963 ms
+gc took 1986 ms
+gc took 1986 ms
+```
+
+### Node with V8
+
+```
+> node --allow-natives-syntax --max-old-space-size=8196 --expose-gc index-d8.js
+memory filled
+gc took 2094 ms
+gc took 2064 ms
+gc took 2137 ms
+gc took 2099 ms
+gc took 2082 ms
+```
+
+### Bun with JavaScriptCore
+
+```
+> bun index-d8.js
+memory filled
+gc took 746 ms
+gc took 583 ms
+gc took 579 ms
+gc took 560 ms
+gc took 560 ms
+gc took 578 ms
+```
+
+### Node with ChakraCore
+
+```
+> node --expose-gc index-d8.js
+memory filled
+gc took 1016 ms
+gc took 1195 ms
+gc took 1209 ms
+gc took 1217 ms
+gc took 1202 ms
 ```
